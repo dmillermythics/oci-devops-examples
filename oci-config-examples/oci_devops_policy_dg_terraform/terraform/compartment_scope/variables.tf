@@ -21,5 +21,5 @@ variable region{
 
 variable tenancy_ocid{
     type = string
-    default = "ocid1.tenancy.oc1..ccccc"
+    default = "ocid1.tenancy.oc1..aaaaaaaan4to7ikejs4l65qpxmh3hzdhl4zq5i3cxpawtkgbvvj5f52x5lea"
 }

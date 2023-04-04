@@ -3,7 +3,7 @@ terraform {
     bucket   = "mr-prod-objectstore-for-terraform"
     key      = "root_${compartment_name}/terraform.tfstate"
     region   = "us-ashburn-1"
-    endpoint = "https://TENANCY.compat.objectstorage.REGION.oraclecloud.com"
+    endpoint = "https://iddsu14hgang.compat.objectstorage.us-ashburn-1.oraclecloud.com"
     shared_credentials_file     = "./cred_store"
     skip_region_validation      = true
     skip_credentials_validation = true
