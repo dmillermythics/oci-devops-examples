@@ -7,6 +7,7 @@ env:
   # these are local variables to the build config
   variables:
     region: "us-ashburn-1" # Set your OCI Region.
+    project_path: "oci-config-examples/oci_devops_policy_dg_terraform"
 
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
@@ -31,7 +32,7 @@ steps:
     timeoutInSeconds: 400
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
-      for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|sort -u -k 1|cut -d = -f 1`
+      for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting on ROOT Tenancy for Compartment - ${cname}.."
       mkdir ${cname}
@@ -44,7 +45,7 @@ steps:
       cat remote-backend_template.tf|envsubst > remote-backend.tf
       rm remote-backend_template.tf
       export TF_VAR_compartment_name=${cname}
-      export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|grep ${cname}|cut -f 2 -d '='`
+      export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
       terraform init -migrate-state
       terraform plan -out plan.out
@@ -59,7 +60,7 @@ steps:
     timeoutInSeconds: 400
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
-      for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|sort -u -k 1|cut -d = -f 1`
+      for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting directly on Compartment - ${cname}.."
       mkdir ${cname}
@@ -72,7 +73,7 @@ steps:
       cat remote-backend_template.tf|envsubst > remote-backend.tf
       rm remote-backend_template.tf
       export TF_VAR_compartment_name=${cname}
-      export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|grep ${cname}|cut -f 2 -d '='`
+      export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
       terraform init -migrate-state
       terraform plan -out plan.out
