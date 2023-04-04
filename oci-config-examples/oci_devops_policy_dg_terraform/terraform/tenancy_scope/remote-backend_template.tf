@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket   = "mr-prod-objectstore-for-terraform"
+    bucket   = "oci_devops_policy_dg_terraform_bucket"
     key      = "root_${compartment_name}/terraform.tfstate"
     region   = "us-ashburn-1"
     endpoint = "https://iddsu14hgang.compat.objectstorage.us-ashburn-1.oraclecloud.com"
