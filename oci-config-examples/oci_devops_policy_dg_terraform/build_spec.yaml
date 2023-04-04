@@ -59,7 +59,7 @@ steps:
     name: "COMPARTMENT - Terraform actions"
     timeoutInSeconds: 400
     command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
+      cd ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/terraform
       for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/${project_path}/compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting directly on Compartment - ${cname}.."
